@@ -40,9 +40,9 @@ def new_tile(
 # helper function used to define file types. takes parameters and creates a numpy array of just one tile_dt element.
 
 floor = new_tile(
-    walkable=True, transparent=True, dark=(ord("."), (255,255,255), (50,50,150)),
+    walkable=True, transparent=True, dark=(ord("."), (153,153,153), (50,50,150)),
 )
 wall = new_tile(
-    walkable=False, transparent=False, dark=(ord("#"), (255,255,255), (0,0,100)),
+    walkable=False, transparent=False, dark=(ord("#"), (82,82,82), (0,0,100)),
 )
 #tile types! i think ord is supposed to the be space character? foreground is next, followed by background.

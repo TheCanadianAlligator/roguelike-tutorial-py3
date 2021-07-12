@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import tcod
 
-#from actions import EscapeAction, MovementAction #well, not anymore
 from engine import Engine
 from entity import Entity
-from game_map import GameMap
+# from game_map import GameMap
 from input_handlers import EventHandler
+from procgen import generate_dungeon
 #importing classes from other files
 
 def main() -> None:
@@ -15,6 +15,10 @@ def main() -> None:
 
     map_width  = 80
     map_height = 45
+
+    room_max_size = 10
+    room_min_size = 6
+    max_rooms = 30
 
     tileset = tcod.tileset.load_tilesheet(
         "dejavu10x10_gs_tc.png", 32, 8, tcod.tileset.CHARMAP_TCOD
@@ -31,7 +35,15 @@ def main() -> None:
     # New with entities: still putting our player in the middle of the screen, and giving them a friend. 
     # Both will be represented by @, but differently coloured.
 
-    game_map = GameMap(map_width, map_height)
+    # game_map = GameMap(map_width, map_height)
+    game_map = generate_dungeon(
+        max_rooms=max_rooms,
+        room_min_size=room_min_size,
+        room_max_size=room_max_size,
+        map_width=map_width,
+        map_height=map_height,
+        player=player
+    )
 
     engine = Engine(entities=entities, event_handler=event_handler, game_map=game_map, player=player)
 
@@ -44,39 +56,12 @@ def main() -> None:
     ) as context:
         root_console = tcod.Console(screen_width, screen_height, order="F") #numpy, by default, accesses 2d arrays in [y,x] order; setting order="F" lets us change this to [x,y]
         while True:     #the game loop. this will never end until we close the screen.
-            
-            #root_console.print(x=player.x, y=player.y, string=player.char, fg=player.color)    
-            #telling the program to put the player at their base position.
-            #if removing this breaks things, uncomment this! seems ok for now...
 
             engine.render(console=root_console, context=context)
 
             events = tcod.event.wait()
 
             engine.handle_events(events)
-            
-            #context.present(root_console)       #context.present updates the screen
-
-            # root_console.clear() #clears the console after we've drawn it, so we don't get "ghosts" hanging around after something moves.
-
-            # for event in tcod.event.wait(): #wait for input from user, loops through each event that happens
-
-            #     action = event_handler.dispatch(event)
-            #     #the event is sent to event_handler's dispatch method, which sends the event to its proper place.
-
-            #     if action is None:
-            #         continue
-                
-            #     if isinstance(action, MovementAction):
-            #         player.move(dx=action.dx, dy=action.dy)
-
-            #     # pulls the dx and dy from input_handlers MovementAction, and modifies the player's position (player_x and y) accordingly. 
-            #     # dx/dy should only ever be -1, 0, or 1 for now.
-
-            #     elif isinstance(action, EscapeAction):
-            #         raise SystemExit()
-
-    # This doesn't need to be here anymore! engine.py is handling this all now. Commented here so we can compare what's been moved to engine in part 2.
 
 
 if __name__ == "__main__":

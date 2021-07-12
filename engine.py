@@ -29,17 +29,6 @@ class Engine:
 
             action.perform(self, self.player)
 
-            # this can now be simplified with new developments in actions
-
-            # if isinstance(action, MovementAction):
-            #     if self.game_map.tiles["walkable"][self.player.x + action.dx, self.player.y + action.dy]:
-            #         self.player.move(dx=action.dx, dy=action.dy)
-
-            # elif isinstance(action, EscapeAction):
-            #     raise SystemExit()
-
-        # very similar to event processing in main.py in part 1! events pass through to this to be interated, and self.event_handler will handle them.
-
     def render(self, console: Console, context: Context) -> None:
         self.game_map.render(console)
 

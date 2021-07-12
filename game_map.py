@@ -6,12 +6,10 @@ import tile_types
 class GameMap:
     def __init__(self, width: int, height: int):
         self.width, self.height = width, height
-        self.tiles = np.full((width, height), fill_value=tile_types.floor, order="F")
+        self.tiles = np.full((width, height), fill_value=tile_types.wall, order="F")
 # initializer takes width and height, assigning them in one line.
-# self.tiles creates a 2D array all filled with the same values: in this case, all floors.
-        self.tiles[30:33, 22] = tile_types.wall
-#creates a 3 tile wide wall at the specified location. normally we won't hardcode walls like this.
-#this is for demonstration purposes, and will be removed soon.
+# self.tiles creates a 2D array all filled with the same values: in this case, all WALLS.
+# now in part 3: we are filling with walls, and carving out rooms with floors using a dungeon generator.
 
 
     def in_bounds(self, x: int, y: int) -> bool:
