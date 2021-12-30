@@ -1,10 +1,10 @@
-Part 3 is done. 
+We just finished with the engine in part 4. Making sure it works now.
+
 Friendship ended with tcod 11.13, now 11.14 is my new friend.
 
 
 I'm sure this txt will be useful later when I finally diverge into something of my own making.
 But then, I guess it shouldn't really be called TutorialProgress?
-
 
 -------------------------------
 
